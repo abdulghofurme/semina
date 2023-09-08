@@ -74,7 +74,7 @@ const destroy = async (req, res, next) => {
       return res.status(404).json({ message: "Kategori tidak ditemukan" });
     }
 
-    res.status(200).json({ data: true });
+    res.status(200).json({ data: category });
   } catch (error) {
     next(error);
   }
