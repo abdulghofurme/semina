@@ -3,6 +3,9 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 
+const notFoundMiddleware = require("./app/middlewares/not-found");
+const errorHandleMiddleware = require("./app/middlewares/handle-error");
+
 // router
 const routerCategories = require("./app/api/v1/categories/router");
 
@@ -21,5 +24,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1/cms/categories", routerCategories);
+
+app.use(notFoundMiddleware);
+app.use(errorHandleMiddleware);
 
 module.exports = app;
