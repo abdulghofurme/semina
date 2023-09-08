@@ -1,4 +1,4 @@
-const { StatusCodes } = require("http-status-code");
+const { StatusCodes } = require("http-status-codes");
 
 const errorHandleMiddleware = (err, req, res, next) => {
   let customError = {
@@ -21,12 +21,12 @@ const errorHandleMiddleware = (err, req, res, next) => {
     customError.statusCode = StatusCodes.BAD_REQUEST;
   }
 
-  if ((err.name = "CastError")) {
+  if (err.name === "CastError") {
     customError.msg = `No item found with id: ${err.value}`;
     customError.statusCode = StatusCodes.BAD_REQUEST;
   }
 
-  return res.statusCode(customError.statusCode).json({ msg: customError.msg });
+  return res.status(customError.statusCode).json({ msg: customError.msg });
 };
 
 module.exports = errorHandleMiddleware;
