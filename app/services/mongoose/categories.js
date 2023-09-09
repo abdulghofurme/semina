@@ -14,7 +14,7 @@ const createCategories = async (req) => {
   return cateogry;
 };
 
-const getCategoryById = async (req) => {
+const getOneCategories = async (req) => {
   const { id } = req.params;
 
   const category = await Categories.findById(id);
@@ -24,7 +24,7 @@ const getCategoryById = async (req) => {
   return category;
 };
 
-const getCategoryByIdAndUpdate = async (req) => {
+const getOneCategoriesAndUpdate = async (req) => {
   const { id } = req.params;
   const { name } = req.body;
 
@@ -48,7 +48,7 @@ const getCategoryByIdAndUpdate = async (req) => {
   return category;
 };
 
-const getCategoryByIdAndDelete = async (req) => {
+const getOneCategoryAndDelete = async (req) => {
   const { id } = req.params;
   const category = await Categories.findByIdAndDelete(id);
 
@@ -60,7 +60,7 @@ const getCategoryByIdAndDelete = async (req) => {
 module.exports = {
   getAllCategories,
   createCategories,
-  getCategoryById,
-  getCategoryByIdAndUpdate,
-  getCategoryByIdAndDelete,
+  getOneCategories,
+  getOneCategoriesAndUpdate,
+  getOneCategoryAndDelete
 };

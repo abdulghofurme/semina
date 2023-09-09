@@ -2,9 +2,9 @@ const { StatusCodes } = require("http-status-codes");
 const {
   getAllCategories,
   createCategories,
-  getCategoryById,
-  getCategoryByIdAndUpdate,
-  getCategoryByIdAndDelete,
+  getOneCategories,
+  getOneCategoriesAndUpdate,
+  getOneCategoryAndDelete,
 } = require("../../../services/mongoose/categories");
 
 const index = async (req, res, next) => {
@@ -31,7 +31,7 @@ const create = async (req, res, next) => {
 
 const find = async (req, res, next) => {
   try {
-    const category = await getCategoryById(req);
+    const category = await getOneCategories(req);
 
     res.status(StatusCodes.OK).json({
       data: category,
@@ -43,7 +43,7 @@ const find = async (req, res, next) => {
 
 const update = async (req, res, next) => {
   try {
-    const category = await getCategoryByIdAndUpdate(req);
+    const category = await getOneCategoriesAndUpdate(req);
 
     res.status(StatusCodes.OK).json({ data: category });
   } catch (error) {
@@ -53,7 +53,7 @@ const update = async (req, res, next) => {
 
 const destroy = async (req, res, next) => {
   try {
-    const category = await getCategoryByIdAndDelete(req);
+    const category = await getOneCategoryAndDelete(req);
 
     res.status(StatusCodes.OK).json({ data: category });
   } catch (error) {
