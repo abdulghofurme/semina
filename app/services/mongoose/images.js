@@ -1,10 +1,16 @@
 const Images = require("../../api/v1/images/model");
-const { BadRequest } = require("../../errors");
+const { BadRequest, NotFound } = require("../../errors");
 
 const getAllImages = async () => {
   const images = await Images.find();
 
   return images;
+};
+
+const checkIsImageExist = async (id) => {
+  const image = await Images.findById(id);
+
+  return Boolean(image);
 };
 
 const createImages = async (req) => {
@@ -30,4 +36,5 @@ module.exports = {
   getAllImages,
   createImages,
   getOneImagesAndDelete,
+  checkIsImageExist,
 };
