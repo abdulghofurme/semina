@@ -8,6 +8,7 @@ const errorHandleMiddleware = require("./app/middlewares/handle-error");
 
 // router
 const routerCategories = require("./app/api/v1/categories/router");
+const routerImages = require("./app/api/v1/images/router");
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1/cms/categories", routerCategories);
+app.use("/api/v1/cms/images", routerImages);
 
 app.use(notFoundMiddleware);
 app.use(errorHandleMiddleware);

@@ -1,6 +1,5 @@
-const express = require("express");
+const router = require("express").Router();
 const { create, index, find, update, destroy } = require("./controller");
-const router = express.Router();
 
 router.route("/").get(index).post(create);
 
