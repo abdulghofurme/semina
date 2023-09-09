@@ -3,8 +3,8 @@ const {
   getAllCategories,
   createCategories,
   getOneCategories,
-  getOneCategoriesAndUpdate,
-  getOneCategoryAndDelete,
+  updateOneCategories,
+  deleteOneCategories,
 } = require("../../../services/mongoose/categories");
 
 const index = async (req, res, next) => {
@@ -43,7 +43,7 @@ const find = async (req, res, next) => {
 
 const update = async (req, res, next) => {
   try {
-    const category = await getOneCategoriesAndUpdate(req);
+    const category = await updateOneCategories(req);
 
     res.status(StatusCodes.OK).json({ data: category });
   } catch (error) {
@@ -53,7 +53,7 @@ const update = async (req, res, next) => {
 
 const destroy = async (req, res, next) => {
   try {
-    const category = await getOneCategoryAndDelete(req);
+    const category = await deleteOneCategories(req);
 
     res.status(StatusCodes.OK).json({ data: category });
   } catch (error) {

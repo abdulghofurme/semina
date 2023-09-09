@@ -1,5 +1,5 @@
 const Categories = require("../../api/v1/categories/model");
-const { NotFound, BadRequest } = require("../../errors");
+const { NotFound } = require("../../errors");
 
 const getAllCategories = async () => {
   const categories = await Categories.find();
@@ -24,16 +24,9 @@ const getOneCategories = async (req) => {
   return category;
 };
 
-const getOneCategoriesAndUpdate = async (req) => {
+const updateOneCategories = async (req) => {
   const { id } = req.params;
   const { name } = req.body;
-
-  // already handled by unique mongoose
-  //   const check = await Categories.findOne({
-  //     name,
-  //     _id: { $ne: id },
-  //   });
-  //   if (check) throw new BadRequest("Nama kategori sudah dipakai");
 
   const category = await Categories.findByIdAndUpdate(
     id,
@@ -48,7 +41,7 @@ const getOneCategoriesAndUpdate = async (req) => {
   return category;
 };
 
-const getOneCategoryAndDelete = async (req) => {
+const deleteOneCategories = async (req) => {
   const { id } = req.params;
   const category = await Categories.findByIdAndDelete(id);
 
@@ -61,6 +54,6 @@ module.exports = {
   getAllCategories,
   createCategories,
   getOneCategories,
-  getOneCategoriesAndUpdate,
-  getOneCategoryAndDelete
+  updateOneCategories,
+  deleteOneCategories,
 };
