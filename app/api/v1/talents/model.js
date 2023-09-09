@@ -20,4 +20,6 @@ const talentSchema = Schema(
   { timestamps: true }
 );
 
-module.exports = model("Talent", talentSchema);
+const Talents = model("Talent", talentSchema);
+
+module.exports = Talents;

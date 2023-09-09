@@ -1,6 +1,6 @@
 const Talents = require("../../api/v1/talents/model");
 const { NotFound } = require("../../errors");
-const imagesService = require("./images");
+const { checkIsImageExist } = require("./images");
 
 const getAllTalents = async (req) => {
   const { name } = req?.query;
@@ -19,11 +19,14 @@ const getAllTalents = async (req) => {
 };
 
 const createTalents = async (req) => {
-  const { name, role } = req.body;
-  const createdImage = await imagesService.createImages(req);
+  const { name, image, role } = req.body;
+
+  const isImageIdValid = await checkIsImageExist(image);
+  if (!isImageIdValid) throw new NotFound("Image tidak ditemukan");
+
   const talent = await Talents.create({
     name,
-    image: createdImage._id,
+    image,
     role,
   });
 
@@ -40,18 +43,19 @@ const getOneTalents = async (req) => {
   return talent;
 };
 
-const getOneTalentsAndUpdate = async (req) => {
+const updateOneTalents = async (req) => {
   const { id } = req.params;
-  const { name, role } = req.body;
+  const { name, image, role } = req.body;
 
-  const createdImage = await imagesService.createImages(req);
+  const isImageIdValid = await checkIsImageExist(image);
+  if (!isImageIdValid) throw new NotFound("Image tidak ditemukan");
 
   const talent = await Talents.findByIdAndUpdate(
     id,
     {
       name,
       role,
-      image: createdImage._id,
+      image,
     },
     { runValidators: true, new: true }
   );
@@ -61,7 +65,7 @@ const getOneTalentsAndUpdate = async (req) => {
   return talent;
 };
 
-const getOneTalentAndDelete = async (req) => {
+const deleteOneTalents = async (req) => {
   const { id } = req.params;
   const talent = await Talents.findByIdAndDelete(id);
 
@@ -70,15 +74,10 @@ const getOneTalentAndDelete = async (req) => {
   return talent;
 };
 
-const deleteAll = async () => {
-  await Talents.deleteMany();
-};
-
 module.exports = {
   getAllTalents,
   createTalents,
-  deleteAll,
   getOneTalents,
-  getOneTalentsAndUpdate,
-  getOneTalentAndDelete,
+  updateOneTalents,
+  deleteOneTalents
 };

@@ -32,14 +32,9 @@ const getOneImagesAndDelete = async (req) => {
   return image;
 };
 
-const deleteAll = async () => {
-  await Images.deleteMany();
-};
-
 module.exports = {
   getAllImages,
   createImages,
   getOneImagesAndDelete,
-  deleteAll,
   checkIsImageExist,
 };

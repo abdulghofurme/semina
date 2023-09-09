@@ -2,10 +2,10 @@ const { StatusCodes } = require("http-status-codes");
 const {
   getAllTalents,
   createTalents,
-  deleteAll,
   getOneTalents,
+  updateOneTalents,
+  deleteOneTalents,
 } = require("../../../services/mongoose/talents");
-const { getOneImagesAndDelete } = require("../../../services/mongoose/images");
 
 const index = async (req, res, next) => {
   try {
@@ -27,16 +27,6 @@ const create = async (req, res, next) => {
   }
 };
 
-const destroyAll = async (req, res, next) => {
-  try {
-    await deleteAll();
-
-    res.status(StatusCodes.OK).json({ msg: "Semua talent berhasil dihapus" });
-  } catch (error) {
-    next(error);
-  }
-};
-
 const find = async (req, res, next) => {
   try {
     const talent = await getOneTalents(req);
@@ -51,7 +41,7 @@ const find = async (req, res, next) => {
 
 const update = async (req, res, next) => {
   try {
-    const talent = await getOneTalents(req);
+    const talent = await updateOneTalents(req);
 
     res.status(StatusCodes.OK).json({
       data: talent,
@@ -63,7 +53,7 @@ const update = async (req, res, next) => {
 
 const destroy = async (req, res, next) => {
   try {
-    const talent = await getOneImagesAndDelete(req);
+    const talent = await deleteOneTalents(req);
 
     res.status(StatusCodes.OK).json({ data: talent });
   } catch (error) {
@@ -74,7 +64,6 @@ const destroy = async (req, res, next) => {
 module.exports = {
   index,
   create,
-  destroyAll,
   find,
   update,
   destroy,
