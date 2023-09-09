@@ -2,7 +2,7 @@ const { StatusCodes } = require("http-status-codes");
 const {
   createImages,
   getAllImages,
-  getImageAndDelete,
+  getOneImagesAndDelete,
 } = require("../../../services/mongoose/images");
 
 const find = async (req, res, next) => {
@@ -27,7 +27,7 @@ const create = async (req, res, next) => {
 
 const destroy = async (req, res, next) => {
   try {
-    const image = await getImageAndDelete(req);
+    const image = await getOneImagesAndDelete(req);
 
     res.status(StatusCodes.OK).json({ data: image });
   } catch (error) {

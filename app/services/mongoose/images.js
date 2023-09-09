@@ -17,7 +17,7 @@ const createImages = async (req) => {
   return image;
 };
 
-const getImageAndDelete = async (req) => {
+const getOneImagesAndDelete = async (req) => {
   const { id } = req.params;
   const image = await Images.findByIdAndDelete(id);
 
@@ -29,5 +29,5 @@ const getImageAndDelete = async (req) => {
 module.exports = {
   getAllImages,
   createImages,
-  getImageAndDelete,
+  getOneImagesAndDelete,
 };
