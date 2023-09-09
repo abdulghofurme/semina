@@ -1,9 +1,9 @@
 const imageMiddleware = require("../../../middlewares/multer");
-const { create, find, destroy } = require("./controller");
+const { create, index, destroy } = require("./controller");
 
 const router = require("express").Router();
 
-router.route("/").post(imageMiddleware.single("file"), create).get(find);
+router.route("/").post(imageMiddleware.single("file"), create).get(index);
 
 router.route("/:id").delete(destroy);
 

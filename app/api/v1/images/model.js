@@ -7,4 +7,6 @@ const imageSchema = Schema(
   { timestamps: true }
 );
 
-module.exports = model("Image", imageSchema);
+const Images = model("Image", imageSchema);
+
+module.exports = Images;

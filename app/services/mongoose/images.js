@@ -23,7 +23,7 @@ const createImages = async (req) => {
   return image;
 };
 
-const getOneImagesAndDelete = async (req) => {
+const deleteOneImages = async (req) => {
   const { id } = req.params;
   const image = await Images.findByIdAndDelete(id);
 
@@ -35,6 +35,6 @@ const getOneImagesAndDelete = async (req) => {
 module.exports = {
   getAllImages,
   createImages,
-  getOneImagesAndDelete,
+  deleteOneImages,
   checkIsImageExist,
 };
