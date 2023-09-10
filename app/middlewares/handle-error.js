@@ -7,9 +7,7 @@ const errorHandleMiddleware = (err, req, res, next) => {
     errors: {},
   };
 
-  console.log(customError);
   if (err.name === "ValidationError") {
-    console.log(Object.keys(err.errors));
     customError.errors = Object.keys(err.errors).reduce(
       (result, key) => ({
         ...result,
@@ -32,8 +30,6 @@ const errorHandleMiddleware = (err, req, res, next) => {
     customError.msg = `No item found with id: ${err.value}`;
     customError.statusCode = StatusCodes.BAD_REQUEST;
   }
-
-  console.log(customError);
 
   return res
     .status(customError.statusCode)

@@ -50,10 +50,16 @@ const deleteOneCategories = async (req) => {
   return category;
 };
 
+const checkIsCategoryExist = async (id) => {
+  const isCategoryExist = await Categories.findById(id)
+  if (!isCategoryExist) throw new NotFound("Kategori tidak ditemukan");
+};
+
 module.exports = {
   getAllCategories,
   createCategories,
   getOneCategories,
   updateOneCategories,
   deleteOneCategories,
+  checkIsCategoryExist,
 };

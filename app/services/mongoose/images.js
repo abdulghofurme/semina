@@ -7,12 +7,6 @@ const getAllImages = async () => {
   return images;
 };
 
-const checkIsImageExist = async (id) => {
-  const image = await Images.findById(id);
-
-  return Boolean(image);
-};
-
 const createImages = async (req) => {
   if (!req.file) throw new BadRequest("Gambar tidak disertakan");
 
@@ -30,6 +24,11 @@ const deleteOneImages = async (req) => {
   if (!image) throw new NotFound(`Image tidak ditemukan`);
 
   return image;
+};
+
+const checkIsImageExist = async (id) => {
+  const isImageExist = await Images.findById(id);
+  if (!isImageExist) throw new NotFound("Image tidak ditemukan");
 };
 
 module.exports = {

@@ -1,17 +1,10 @@
 const Events = require("../../api/v1/events/model");
 const { NotFound } = require("../../errors");
+const { checkIsCategoryExist } = require("./categories");
 const { checkIsImageExist } = require("./images");
+const { checkIsTalentExist } = require("./talents");
 
 const getAllEvents = async (req) => {
-  //   const events = await Events.find()
-  //     .populate("image")
-  //     .populate("category")
-  //     .populate({ path: "talent", populate: { path: "image" } });
-
-  //   const events = await Events.find()
-  //     .populate(["image", "category"])
-  //     .populate({ path: "talent", populate: { path: "image" } });
-
   const events = await Events.find().populate([
     { path: "image", select: "_id url" },
     { path: "categories", select: "_id name" },
@@ -40,8 +33,12 @@ const createEvents = async (req) => {
     talent,
   } = req.body;
 
-  const isImagevalid = await checkIsImageExist(image);
-  if (!isImagevalid) throw new NotFound("Image tidak ditemukan");
+  await checkIsTalentExist(talent);
+  await checkIsImageExist(image);
+  for (let index = 0; index < categories.length; index++) {
+    const element = categories[index];
+    await checkIsCategoryExist(element);
+  }
 
   const event = await Events.create({
     title,
@@ -95,8 +92,12 @@ const updateOneEvents = async (req) => {
     talent,
   } = req.body;
 
-  const isImagevalid = await checkIsImageExist(image);
-  if (!isImagevalid) throw new NotFound("Image tidak ditemukan");
+  await checkIsTalentExist(talent);
+  await checkIsImageExist(image);
+  for (let index = 0; index < categories.length; index++) {
+    const element = categories[index];
+    await checkIsCategoryExist(element);
+  }
 
   const event = await Events.findByIdAndUpdate(
     id,

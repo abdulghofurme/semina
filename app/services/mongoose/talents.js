@@ -21,8 +21,7 @@ const getAllTalents = async (req) => {
 const createTalents = async (req) => {
   const { name, image, role } = req.body;
 
-  const isImageIdValid = await checkIsImageExist(image);
-  if (!isImageIdValid) throw new NotFound("Image tidak ditemukan");
+  await checkIsImageExist(image);
 
   const talent = await Talents.create({
     name,
@@ -47,8 +46,7 @@ const updateOneTalents = async (req) => {
   const { id } = req.params;
   const { name, image, role } = req.body;
 
-  const isImageIdValid = await checkIsImageExist(image);
-  if (!isImageIdValid) throw new NotFound("Image tidak ditemukan");
+  await checkIsImageExist(image);
 
   const talent = await Talents.findByIdAndUpdate(
     id,
@@ -74,10 +72,16 @@ const deleteOneTalents = async (req) => {
   return talent;
 };
 
+const checkIsTalentExist = async (id) => {
+  const isTalentExist = await Talents.findById(id);
+  if (!isTalentExist) throw new NotFound("Talent tidak ditemukan");
+};
+
 module.exports = {
   getAllTalents,
   createTalents,
   getOneTalents,
   updateOneTalents,
-  deleteOneTalents
+  deleteOneTalents,
+  checkIsTalentExist,
 };
